@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Projek</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="back-nav" style="padding: 30px 10%;">
+        <a href="index.html" class="btn-secondary" style="padding: 10px 20px;">&larr; Back to Portfolio</a>
+    </div>
+
+    <section class="section detail-section" style="padding-top: 20px;">
+        <div class="container">
+            
+            <h1 id="detailTitle" class="section-title" style="text-align: left; margin-bottom: 10px;">Loading...</h1>
+            <p id="detailCategory" style="color:var(--neon-purple); margin-bottom: 30px;">Web Development</p>
+
+            <div class="detail-container" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                
+                <div class="detail-image-box" style="flex: 1.5; min-width: 300px;">
+                    <img id="detailImage" src="" alt="Project Preview" style="width: 100%; border-radius: 15px; border: 1px solid var(--primary-purple); box-shadow: 0 0 20px rgba(126,34,206,0.2);">
+                </div>
+
+                <div class="detail-info-box" style="flex: 1; min-width: 300px;">
+                    
+                    <h3 style="color: white; margin-bottom: 15px;">Description</h3>
+                    <p id="detailDesc" style="color: var(--text-gray); line-height: 1.8; margin-bottom: 30px;">
+                        Loading description...
+                    </p>
+
+                    <h3 style="color: white; margin-bottom: 15px;">Key Features</h3>
+                    <ul id="detailFeatures" style="color: var(--text-gray); margin-bottom: 30px; padding-left: 20px;">
+                        </ul>
+
+                    <h3 style="color: white; margin-bottom: 15px;">Technologies Used</h3>
+                    <div id="detailTech" class="tech-grid" style="justify-content: start; justify-items: start; gap: 10px;">
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // SCRIPT KHUSUS HALAMAN INI
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Ambil data dari LocalStorage (yang dikirim dari halaman depan)
+            const projectData = JSON.parse(localStorage.getItem("currentProject"));
+
+            if (projectData) {
+                document.getElementById("detailTitle").innerText = projectData.title;
+                document.getElementById("detailCategory").innerText = projectData.category;
+                document.getElementById("detailImage").src = projectData.image; // Pastikan ada URL gambar
+                document.getElementById("detailDesc").innerText = projectData.description;
+
+                // Render Features
+                const featureList = document.getElementById("detailFeatures");
+                projectData.features.forEach(feat => {
+                    let li = document.createElement("li");
+                    li.innerText = feat;
+                    featureList.appendChild(li);
+                });
+
+                // Render Tech Stack
+                const techContainer = document.getElementById("detailTech");
+                projectData.tech.forEach(t => {
+                    let span = document.createElement("span");
+                    span.className = "tech-badge"; // Pakai style badge yang sudah ada di CSS
+                    span.innerText = t;
+                    techContainer.appendChild(span);
+                });
+            } else {
+                // Jika tidak ada data, kembalikan ke home
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+</body>
+</html>
