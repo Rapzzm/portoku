@@ -120,3 +120,4 @@ function openProject(id) {
         window.open("project-details.html", "_blank");
     }
 }
+
